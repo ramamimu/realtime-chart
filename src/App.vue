@@ -14,6 +14,14 @@ const getTools = async () => {
         console.log(data);
         counter.tools0 = data.filter((item) => item.type === 0);
         counter.tools1 = data.filter((item) => item.type === 1);
+
+        counter.tools0.sort((a, b) => {
+          return a.time - b.time;
+        });
+
+        counter.tools1.sort((a, b) => {
+          return a.time - b.time;
+        });
       });
     console.log("0 : ", counter.tools0);
     console.log("1 : ", counter.tools1);
@@ -26,7 +34,7 @@ onMounted(async () => {
   await getTools();
   setInterval(async () => {
     await getTools();
-  }, 60000);
+  }, 1000);
 });
 </script>
 

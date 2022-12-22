@@ -1,11 +1,39 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
 import { reactive, ref } from "vue";
-import { onMounted } from "vue";
+import { watch } from "vue";
+import { useCounterStore } from "../stores/counter";
 
-onMounted(() => {
-  // set theme tooltip apexchart into dark mode
-  // this.$refs.t
-  // Apex.tooltip.theme = "dark";
+const counter = useCounterStore();
+
+watch("counter.tools0", (val) => {
+  console.log("tools0 : ", val);
+  const graphData = counter.getGraph(0);
+  const tempSeries = [
+    {
+      name: "voltage",
+      data: graphData.voltage,
+    },
+    {
+      name: "frequency",
+      data: graphData.frequency,
+    },
+    {
+      name: "current",
+      data: graphData.current,
+    },
+    {
+      name: "power",
+      data: graphData.power,
+    },
+    {
+      name: "powerF",
+      data: graphData.powerF,
+    },
+  ];
+
+  updateSeries(tempSeries);
+  updateOptionsCategory(graphData.time);
 });
 
 const options = reactive({
@@ -82,12 +110,6 @@ const options = reactive({
     curve: "smooth",
     width: 2,
   },
-  // grid: {
-  //   row: {
-  //     colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
-  //     opacity: 0.005,
-  //   },
-  // },
   grid: {
     borderColor: "green",
     show: true,
@@ -143,19 +165,13 @@ const series = ref([
   },
 ]);
 
-// const tooltip = reactive({
-//   theme: "dark",
-//   x: {
-//     show: false,
-//   },
-//   y: {
-//     title: {
-//       formatter: function (seriesName) {
-//         return seriesName;
-//       },
-//     },
-//   },
-// });
+const updateSeries = (data) => {
+  series.value = data;
+};
+
+const updateOptionsCategory = (data) => {
+  options.xaxis.categories = data;
+};
 </script>
 
 <template>
