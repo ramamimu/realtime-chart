@@ -5,7 +5,7 @@ import Filter from "../components/filter.vue";
 
 <template>
   <main
-    class="h-screen flex gap-2 flex-col justify-center items-center bg-slate-700"
+    class="min-h-screen flex gap-2 flex-col justify-center items-center bg-slate-700"
   >
     <div class="">
       <Filter></Filter>
