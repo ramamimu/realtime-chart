@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, ref } from "vue";
-import { watch, defineProps } from "vue";
+import { watch } from "vue";
 import { useChartStore } from "../stores/chart";
 
 const props = defineProps({

@@ -1,0 +1,11 @@
+{
+  "port": 8989,
+  "mysql": {
+    "host": "localhost",
+    "user": "root",
+    "password": "",
+    "database": "realtimedb",
+    "table": "moduldb"
+  },
+  "timeReqInMS": 60000
+}

@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted } from "vue";
+import config from "../config/config.json";
 import { useChartStore } from "./stores/chart";
 
 const chartStore = useChartStore();
@@ -51,7 +52,7 @@ onMounted(async () => {
   await getTools();
   setInterval(async () => {
     await getTools();
-  }, 3000);
+  }, config.timeReqInMS);
 });
 </script>
 
