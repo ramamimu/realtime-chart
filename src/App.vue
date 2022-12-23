@@ -1,10 +1,15 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "./components/HelloWorld.vue";
 import { onMounted } from "vue";
-import { useCounterStore } from "./stores/counter";
+import { useChartStore } from "./stores/chart";
 
-const counter = useCounterStore();
+const chartStore = useChartStore();
+
+const isEqual = (a, b) => {
+  if (a.toString() !== b.toString()) {
+    return false;
+  }
+  return true;
+};
 
 const getTools = async () => {
   try {
@@ -12,19 +17,31 @@ const getTools = async () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        counter.tools0 = data.filter((item) => item.type === 0);
-        counter.tools1 = data.filter((item) => item.type === 1);
+        let tempTools0 = data.filter((item) => item.type === 0);
+        let tempTools1 = data.filter((item) => item.type === 1);
 
-        counter.tools0.sort((a, b) => {
+        tempTools0.sort((a, b) => {
           return a.time - b.time;
         });
 
-        counter.tools1.sort((a, b) => {
+        tempTools1.sort((a, b) => {
           return a.time - b.time;
         });
+
+        if (!isEqual(tempTools0, chartStore.tools0)) {
+          chartStore.tools0 = [...tempTools0];
+          chartStore.isChange0 = true;
+        } else {
+          chartStore.isChange0 = false;
+        }
+
+        if (!isEqual(tempTools1, chartStore.tools1)) {
+          chartStore.tools1 = [...tempTools1];
+          chartStore.isChange1 = true;
+        } else {
+          chartStore.isChange1 = false;
+        }
       });
-    console.log("0 : ", counter.tools0);
-    console.log("1 : ", counter.tools1);
   } catch (e) {
     console.log(e);
   }
@@ -34,30 +51,11 @@ onMounted(async () => {
   await getTools();
   setInterval(async () => {
     await getTools();
-  }, 1000);
+  }, 3000);
 });
 </script>
 
 <template>
-  <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
-    />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
   <RouterView />
 </template>
 

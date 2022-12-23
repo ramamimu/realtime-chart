@@ -2,12 +2,12 @@
 <script setup>
 import { reactive, ref } from "vue";
 import { watch } from "vue";
-import { useCounterStore } from "../stores/counter";
+import { useCounterStore } from "../stores/counterChart";
 
 const counter = useCounterStore();
 
-watch("counter.tools0", (val) => {
-  console.log("tools0 : ", val);
+watch("counter.tools0", () => {
+  console.log("tools0 : ", counter.tools0);
   const graphData = counter.getGraph(0);
   const tempSeries = [
     {
