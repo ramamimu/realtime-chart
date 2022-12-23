@@ -57,6 +57,4 @@ onMounted(async () => {
 
 <template>
   <RouterView />
-  <h1>Hello world</h1>
-  <h2>Hello world</h2>
 </template>

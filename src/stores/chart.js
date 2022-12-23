@@ -10,11 +10,15 @@ export const useChartStore = defineStore("chart", () => {
 
   const chart = ref();
 
+  const setTimeFormat = (time) => {
+    return time < 10 ? `0${time}` : time;
+  };
+
   const getLastData = (arr, range) => {
     return arr.length > range ? arr.slice(arr.length - range, arr.length) : arr;
   };
 
-  const getGraph = (index) => {
+  const getGraph = (index, range) => {
     let tools;
     index === 0 ? (tools = tools0) : (tools = tools1);
 
@@ -38,53 +42,63 @@ export const useChartStore = defineStore("chart", () => {
     });
 
     // filter data
-    res.voltage = getLastData(res.voltage, 10);
-    res.frequency = getLastData(res.frequency, 10);
-    res.current = getLastData(res.current, 10);
-    res.power = getLastData(res.power, 10);
-    res.powerF = getLastData(res.powerF, 10);
-    res.time = getLastData(res.time, 10);
+    res.voltage = getLastData(res.voltage, range);
+    res.frequency = getLastData(res.frequency, range);
+    res.current = getLastData(res.current, range);
+    res.power = getLastData(res.power, range);
+    res.powerF = getLastData(res.powerF, range);
+    res.time = getLastData(res.time, range);
 
     return res;
   };
 
-  const getSeries = (graphData) => {
-    const tempSeries = [
-      {
+  const getSeries = (graphData, picked) => {
+    const tempSeries = [];
+    if (picked == "voltage") {
+      tempSeries.push({
         name: "voltage",
         data: graphData.voltage,
-      },
-      {
+      });
+    }
+    if (picked == "frequency") {
+      tempSeries.push({
         name: "frequency",
         data: graphData.frequency,
-      },
-      {
+      });
+    }
+    if (picked == "current") {
+      tempSeries.push({
         name: "current",
         data: graphData.current,
-      },
-      {
+      });
+    }
+    if (picked == "power") {
+      tempSeries.push({
         name: "power",
         data: graphData.power,
-      },
-      {
+      });
+    }
+    if (picked == "powerF") {
+      tempSeries.push({
         name: "powerF",
         data: graphData.powerF,
-      },
-    ];
-
+      });
+    }
     return tempSeries;
   };
 
   const getOptions = (dataTime, optionsData) => {
     let temp = dataTime.map((item) => {
       const date = new Date(item);
-      return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+      return `${setTimeFormat(date.getHours())}:${setTimeFormat(
+        date.getMinutes()
+      )}:${setTimeFormat(date.getSeconds())}`;
     });
     const options = {
       ...optionsData,
       xaxis: {
         min: () => {
-          return dataTime[dataTime.length - 6];
+          return dataTime[0];
         },
         max: () => {
           return dataTime[dataTime.length - 1];
@@ -104,5 +118,6 @@ export const useChartStore = defineStore("chart", () => {
     getGraph,
     getSeries,
     getOptions,
+    setTimeFormat,
   };
 });
