@@ -30,7 +30,7 @@ let options = reactive({
       easing: "easeinout",
       animateGradually: {
         enabled: false,
-        delay: 10,
+        delay: 100,
       },
       dynamicAnimation: {
         enabled: true,
@@ -42,11 +42,11 @@ let options = reactive({
         inverseOrder: false,
         hollow: {
           margin: 5,
-          size: "48%",
+          size: "88%",
           background: "transparent",
         },
         track: {
-          show: true,
+          show: false,
           background: "#40475D",
           strokeWidth: "10%",
           opacity: 1,
@@ -179,10 +179,3 @@ let series = ref([
     ></apexchart>
   </div>
 </template>
-
-<style scoped>
-.apexcharts-tooltip {
-  background: black;
-  color: orange;
-}
-</style>

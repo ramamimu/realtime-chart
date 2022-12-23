@@ -176,18 +176,6 @@ const updateOptionsCategory = (data) => {
 
 <template>
   <div style="color: blue">
-    <apexchart
-      width="500"
-      type="line"
-      :options="options"
-      :series="series"
-    ></apexchart>
+    <apexchart type="line" :options="options" :series="series"></apexchart>
   </div>
 </template>
-
-<style scoped>
-.apexcharts-tooltip {
-  background: black;
-  color: orange;
-}
-</style>
