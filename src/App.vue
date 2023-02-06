@@ -17,7 +17,6 @@ const getTools = async () => {
     await fetch("http://localhost:8989/")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         let tempTools0 = data.filter((item) => item.type === 0);
         let tempTools1 = data.filter((item) => item.type === 1);
 

@@ -5,7 +5,17 @@
     "user": "root",
     "password": "",
     "database": "realtimedb",
-    "table": "moduldb"
+    "table": "njajal"
   },
-  "timeReqInMS": 60000
+  "timeReqInMS": 60000,
+  "minVoltage": 0,
+  "maxVoltage": 100,
+  "minFrequency": 0,
+  "maxFrequency": 20,
+  "minCurrent": 0,
+  "maxCurrent": 10,
+  "minPower": 0,
+  "maxPower": 30,
+  "minPowerF": 0,
+  "maxPowerF": 40
 }

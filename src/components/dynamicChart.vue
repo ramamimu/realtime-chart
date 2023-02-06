@@ -36,6 +36,9 @@ const setGraph = () => {
       lastValue.time.getMinutes()
     )}:${chartStore.setTimeFormat(lastValue.time.getSeconds())}`;
   }
+
+  options.yaxis = chartStore.offsetY[picked.value];
+
   chart.value.updateSeries(chartStore.getSeries(graphData, picked.value));
   chart.value.updateOptions(
     chartStore.getOptions(graphData.time, options),

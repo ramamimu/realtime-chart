@@ -1,5 +1,6 @@
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import { defineStore } from "pinia";
+import Config from "../../config/config.json";
 
 export const useChartStore = defineStore("chart", () => {
   const tools0 = ref([]);
@@ -9,6 +10,29 @@ export const useChartStore = defineStore("chart", () => {
   const isChange1 = ref(false);
 
   const chart = ref();
+
+  const offsetY = reactive({
+    voltage: {
+      min: Config.minVoltage,
+      max: Config.maxVoltage,
+    },
+    frequency: {
+      min: Config.minFrequency,
+      max: Config.maxFrequency,
+    },
+    current: {
+      min: Config.minCurrent,
+      max: Config.maxCurrent,
+    },
+    power: {
+      min: Config.minPower,
+      max: Config.maxPower,
+    },
+    powerF: {
+      min: Config.minPowerF,
+      max: Config.maxPowerF,
+    },
+  });
 
   const setTimeFormat = (time) => {
     return time < 10 ? `0${time}` : time;
@@ -115,6 +139,7 @@ export const useChartStore = defineStore("chart", () => {
     tools1,
     isChange0,
     isChange1,
+    offsetY,
     getGraph,
     getSeries,
     getOptions,
